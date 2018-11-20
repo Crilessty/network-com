@@ -1,4 +1,4 @@
-#ping
+# ping
 
 ping destIP -l length -n counts
 
