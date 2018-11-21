@@ -137,7 +137,7 @@ int icmp_unpack(char* buf, int len)
 
 void ping_send()
 {
-    char send_buf[128];
+    char send_buf[4096];
     memset(send_buf, 0, sizeof(send_buf));
     gettimeofday(&start_time, NULL); 
     while(send_count < counts)
