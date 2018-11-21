@@ -165,7 +165,7 @@ void ping_recv()
     tv.tv_usec = 200;  //select超时时间
     tv.tv_sec = 0;
     fd_set read_fd;
-    char recv_buf[512];
+    char recv_buf[4096];
     memset(recv_buf, 0 ,sizeof(recv_buf));
     while(recv_count < counts)
     {
