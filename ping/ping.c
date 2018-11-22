@@ -13,7 +13,7 @@
 #include <pthread.h>
 
 
-#define PACKET_SEND_MAX_NUM 64
+#define PACKET_SEND_MAX_NUM 1024
 
 typedef struct ping_packet_status
 {
