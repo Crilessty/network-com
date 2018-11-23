@@ -228,7 +228,7 @@ int main(int argc, char* argv[])
 
     counts = atoi(argv[3]);
     if(atoi(argv[5]) != 0)
-        icmp_length = atoi(argv[5]);
+        icmp_length = atoi(argv[5]) + 8;
 
     protocol = getprotobyname("icmp"); 
     if(protocol == NULL)
