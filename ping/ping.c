@@ -274,7 +274,7 @@ int main(int argc, char* argv[])
     printf("PING %s, (%d.%d.%d.%d) %d(%d) bytes of data.\n",dest_addr_str,
         (inaddr&0x000000ff), (inaddr&0x0000ff00)>>8, 
         (inaddr&0x00ff0000)>>16, (inaddr&0xff000000)>>24,
-        icmp_length,icmp_length+28);
+        icmp_length-8,icmp_length+20);
 
     if(pthread_create(&send_id, NULL, (void*)ping_send, NULL))
     {
