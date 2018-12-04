@@ -107,7 +107,7 @@ int main(int argc,char **argv)
         fiplist = fopen(".ip","r");
         fnamelist = fopen(".name","r");
         while (fgets(buffer1,40,fiplist) && fgets(buffer2,40,fnamelist)) {
-            inetaton(buffer1,&IP[scan_num - 1]);
+            inet_aton(buffer1,&IP[scan_num]);
             printf("%s\t%s\n",buffer2,buffer1);
             scan_num ++;
         }
@@ -118,7 +118,7 @@ int main(int argc,char **argv)
     for (int j = 0;j < scan_num;j ++) {
         //thread 实现
         for(i = 0;i < THREAD_NUM; i++) {
-            port[i].ip = IP;
+            port[i].ip = IP[j];
             port[i].start = i;
             
             if(pthread_create(&thread[i], NULL, scan, (void *)&port[i]) != 0){
