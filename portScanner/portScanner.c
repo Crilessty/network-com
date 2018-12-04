@@ -45,7 +45,7 @@ int scan_(char *ip,int po)
         perror("socket error :");
         return 0;
     }
-    //阻塞超时
+    //设置非阻塞模式和超时
     fcntlStatus = fcntl(sockfd, F_GETFL, 0);
     if (fcntlStatus < 0) {
         close(sockfd);
@@ -80,7 +80,10 @@ int scan_(char *ip,int po)
             return 0;
         }
     }
-      
+    else
+        return 1;
+        
+    return 0;
 }
 
 //扫描函数
