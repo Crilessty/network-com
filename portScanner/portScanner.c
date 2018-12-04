@@ -28,8 +28,9 @@ int scan_(char *ip,int po)
 {
     
     struct sockaddr_in sa;
-    int sockfd;
-
+    int sockfd,connectStatus;
+    struct timeval timeout;
+    fd_set fdr, fdw;
 
     memset(&sa, 0, sizeof(sa));
 
@@ -44,15 +45,28 @@ int scan_(char *ip,int po)
     }
     
     
-    if( connect(sockfd,(struct sockaddr *)&sa,sizeof(sa)) < 0){
-        //perror("connect fail: ");
-        close(sockfd);
-        return 0;
-    }
-    else
-    {
-        close(sockfd);
-        return 1;
+    connectStatus = connect(sockfd, (struct sockaddr *) &sa, sizeof(sa));
+    if (connectStatus != 0) {
+        if (errno == EINPROGRESS) {
+            FD_ZERO(&fdr);
+            FD_ZERO(&fdw);
+            FD_SET(sockfd, &fdr);
+            FD_SET(sockfd, &fdw);
+            // 设置1s超时
+            timeout.tv_sec = 1;
+            timeout.tv_usec = 0;
+            connectStatus = select(sockfd + 1, &fdr, &fdw, NULL, &timeout);
+            if (connectStatus <= 0 || connectStatus == 2) {
+                close(sockfd);
+                return 0;
+            }
+            if (connectStatus == 1 && FD_ISSET(sockfd, &fdw)) {
+                close(sockfd);
+                return 1;
+            }
+            close(sockfd);
+            return 0;
+        }
     }
       
 }
@@ -108,7 +122,7 @@ int main(int argc,char **argv)
         fnamelist = fopen(".name","r");
         while (fgets(buffer1,40,fiplist) && fgets(buffer2,40,fnamelist)) {
             inet_aton(buffer1,&IP[scan_num]);
-            printf("%s | %s\n",buffer2,buffer1);
+            printf("hostname: %sip: %s\n",buffer2,buffer1);
             scan_num ++;
         }
         fclose(fiplist);
