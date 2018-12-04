@@ -127,8 +127,8 @@ int main(int argc,char **argv)
         char buffer1[40],buffer2[40];
         //shell arp -na
         printf("\n");
-        system("sudo arp -na | cut -d \" \" -f 1 > .name");
-        system("sudo arp -na | cut -d \" \" -f 2 | sed \"s/(//g\" | sed \"s/)//g\" > .ip");
+        system("sudo arp -a | cut -d \" \" -f 1 > .name");
+        system("sudo arp -a | cut -d \" \" -f 2 | sed \"s/(//g\" | sed \"s/)//g\" > .ip");
 
         fiplist = fopen(".ip","r");
         fnamelist = fopen(".name","r");
