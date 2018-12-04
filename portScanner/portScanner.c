@@ -157,8 +157,8 @@ int main(int argc,char **argv)
             pthread_join(*(thread+i),NULL);
         }
 
-        printf("ports (1 - %d) scanning is completed .\n",MAX_PORT);
-    }
+        printf("%s:ports (1 - %d) scanning is completed .\n",inet_ntoa(IP[j]),MAX_PORT);
+    } 
     
     
     free(thread);
