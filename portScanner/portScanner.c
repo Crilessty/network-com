@@ -28,7 +28,7 @@ int scan_(char *ip,int po)
 {
     
     struct sockaddr_in sa;
-    int sockfd,connectStatus;
+    int sockfd,connectStatus,fcntlStatus;
     struct timeval timeout;
     fd_set fdr, fdw;
 
@@ -44,6 +44,16 @@ int scan_(char *ip,int po)
         return 0;
     }
     
+    fcntlStatus = fcntl(sockfd, F_GETFL, 0);
+    if (fcntlStatus < 0) {
+        close(sockfd);
+        return 0;
+    }
+    fcntlStatus |= O_NONBLOCK;
+    if (fcntl(sockfd, F_SETFL, fcntlStatus) < 0) {
+        close(sockfd);
+        return 0;
+    }
     
     connectStatus = connect(sockfd, (struct sockaddr *) &sa, sizeof(sa));
     if (connectStatus != 0) {
