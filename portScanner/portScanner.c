@@ -157,7 +157,7 @@ int main(int argc,char **argv)
             pthread_join(*(thread+i),NULL);
         }
 
-        printf("%s : ports (1 - %d) scanning is completed .\n",argv[1],MAX_PORT);
+        printf("ports (1 - %d) scanning is completed .\n",MAX_PORT);
     }
     
     
