@@ -108,7 +108,7 @@ int main(int argc,char **argv)
         fnamelist = fopen(".name","r");
         while (fgets(buffer1,40,fiplist) && fgets(buffer2,40,fnamelist)) {
             inet_aton(buffer1,&IP[scan_num]);
-            printf("%s\t%s\n",buffer2,buffer1);
+            printf("%s | %s\n",buffer2,buffer1);
             scan_num ++;
         }
         fclose(fiplist);
