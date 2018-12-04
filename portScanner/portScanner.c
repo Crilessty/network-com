@@ -82,7 +82,7 @@ int scan_(char *ip,int po)
     }
     else
         return 1;
-        
+
     return 0;
 }
 
@@ -160,7 +160,7 @@ int main(int argc,char **argv)
             pthread_join(*(thread+i),NULL);
         }
 
-        printf("%s:\tports (1 - %d) scanning is completed .\n",inet_ntoa(IP[j]),MAX_PORT);
+        printf("%s:ports (1 - %d) scanning is completed .\n",inet_ntoa(IP[j]),MAX_PORT);
     } 
     
     
