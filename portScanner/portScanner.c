@@ -11,6 +11,8 @@
 #include <string.h>
 #include <netdb.h>
 #include <pthread.h>
+#include <sys/types.h>
+#include <fcntl>
 
 #define SEGMENT_LENGTH     100
 #define MAX_PORT          1024 
